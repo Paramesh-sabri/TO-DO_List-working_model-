@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 75%;
+            max-width: 500px;
+            height: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 30px;
+            box-shadow: 5px 5px 7px gray;
+            border: 1px solid rgb(221, 209, 211);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #dcd9d9;
+            border-radius: 4px;
+            margin-right: 20px;
+            width: 100%;
+            box-shadow:3px 2px 5px rgb(96, 87, 76);
+        }
+        .add-btn {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #4a5ce6;
+            background-color: #007bff;
+            color: white;
+            border-radius:4px;
+            cursor: pointer;
+            width: 12%;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .add-btn:hover {
+            background-color: #2668b9;
+        }
+        .list-group {
+            list-style-type: none;
+            padding: 0;
+        }
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .todo-item.completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .add-button{
+            display: flex;
+            justify-content: center;
+        }
+        .input-group{
+            width: 95%;
+            margin-right: 40px;
+        }
+        .todo-input:hover{
+            scale: 99%;
+            border: 1px solid rgb(46, 44, 44);
+        }
+        .add-btn:active {
+            background-color: #000000;
+            scale: 90%;
+        }
+        .todo-input{
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-group">
+            <input type="text" class="todo-input" placeholder="Add a new task" id="new-task">
+            <br><br>
+        </div>
+        <div class="add-button">
+            <button class="add-btn" id="add-btn">Add</button>
+        </div>
+        <ul class="list-group" id="todo-list"></ul>
+    </div>
+    <script>
+        document.getElementById('add-btn').addEventListener('click', function() {
+            let newTask = document.getElementById('new-task').value;
+            if (newTask.trim() !== '') {
+                addTask(newTask);
+                document.getElementById('new-task').value = '';
+            }
+        });
+
+        function addTask(task) {
+            let todoList = document.getElementById('todo-list');
+            let listItem = document.createElement('li');
+            listItem.className = 'list-group-item todo-item';
+            listItem.innerHTML = `
+                <span>${task}</span>
+                <div>
+                    <button class="btn btn-success complete-btn">Completed</button>
+                    <button class="btn btn-danger delete-btn">Delete</button>
+                </div>
+            `;
+            todoList.appendChild(listItem);
+
+            listItem.querySelector('.complete-btn').addEventListener('click', function() {
+                listItem.classList.toggle('completed');
+            });
+
+            listItem.querySelector('.delete-btn').addEventListener('click', function() {
+                todoList.removeChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
